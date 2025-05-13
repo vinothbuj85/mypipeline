@@ -11,7 +11,7 @@ pipeline {
         stage('Build') {
             steps {
                 echo 'Building...'
-                echo 'Running docker build...'
+                echo 'Running docker build....'
             }
         }
         stage('Test') {
