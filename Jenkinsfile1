@@ -8,7 +8,7 @@ pipeline{
             sh 'node --version'
         }  
       }  
-    stage('osversion'){
+      stage('osversion'){
         steps {
             sh 'cat /etc/os-release'
         }  
