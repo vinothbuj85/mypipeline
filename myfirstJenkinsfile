@@ -1,0 +1,42 @@
+pipeline{
+agent any
+environment {
+    KUBECONFIG = "/tmp/config"
+}
+stages{
+    stage('checkout'){
+       steps{
+           git branch: 'main', url: 'https://github.com/vinothbuj85/mypipeline.git'
+            
+       } 
+    }
+    
+    stage('docker_build'){
+        steps{
+            sh 'docker build -t vinothbuj85/jenkinimage:$docker_version .'
+        }
+    }
+    stage('docker push'){
+        steps{
+withCredentials([usernamePassword(credentialsId: 'dockerhub', passwordVariable: 'dockerpw', usernameVariable: 'dockerun')]) {
+     sh 'sudo docker login -S -u ${dockerun} -p ${dockerpw}'
+}
+           sh 'sudo docker push vinothbuj85/jenkinimage:$docker_version'
+        }
+        }
+    stage('k8s deploy'){
+        steps{
+            sh '''kubectl get pods
+            kubectl set image deployment web web=vinothbuj85/jenkinimage:$docker_version'''
+        }
+        
+    }
+        
+    }
+    
+    
+
+}
+
+
+
