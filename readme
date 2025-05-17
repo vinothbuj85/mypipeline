@@ -1,0 +1,5 @@
+1.Anynode we can give like this 
+agent any
+2. For particular node we may use folloeing 
+
+agent{ label 'nodename'} 
