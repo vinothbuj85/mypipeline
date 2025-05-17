@@ -26,7 +26,7 @@ pipeline{
         }
         stage('doccker deploy'){
             steps{
-                sh 'docker container run nodeweb -itd  vinothbuj85/nodeapp'
+                sh 'docker container run --name webcon -itd  vinothbuj85/nodeapp:5'
             }
         }
     }
